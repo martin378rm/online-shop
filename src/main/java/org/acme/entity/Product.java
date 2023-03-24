@@ -2,6 +2,7 @@ package org.acme.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -14,17 +15,22 @@ public class Product extends PanacheEntityBase {
     @Id
     private String id;
 
-    private String nama_produk;
+    @Column(name = "nama_produk")
+    private String namaProduk;
 
-    private String deskripsi_produk;
+    @Column(name = "deskripsi_produk")
+    private String deskripsiProduk;
 
-    private Integer harga_produk;
+    @Column(name = "harga_produk")
+    private Integer hargaProduk;
 
-    private Integer stok_produk;
+    @Column(name = "stok_produk")
+    private Integer stokProduk;
 
 
 
     // setter & getter
+
 
     public String getId() {
         return id;
@@ -34,37 +40,35 @@ public class Product extends PanacheEntityBase {
         this.id = id;
     }
 
-    public String getNama_produk() {
-        return nama_produk;
+    public String getNamaProduk() {
+        return namaProduk;
     }
 
-    public void setNama_produk(String nama_produk) {
-        this.nama_produk = nama_produk;
+    public void setNamaProduk(String namaProduk) {
+        this.namaProduk = namaProduk;
     }
 
-    public String getDeskripsi_produk() {
-        return deskripsi_produk;
+    public String getDeskripsiProduk() {
+        return deskripsiProduk;
     }
 
-    public void setDeskripsi_produk(String deskripsi_produk) {
-        this.deskripsi_produk = deskripsi_produk;
+    public void setDeskripsiProduk(String deskripsiProduk) {
+        this.deskripsiProduk = deskripsiProduk;
     }
 
-    public Integer getHarga_produk() {
-        return harga_produk;
+    public Integer getHargaProduk() {
+        return hargaProduk;
     }
 
-    public void setHarga_produk(Integer harga_produk) {
-        this.harga_produk = harga_produk;
+    public void setHargaProduk(Integer hargaProduk) {
+        this.hargaProduk = hargaProduk;
     }
 
-    public Integer getStok_produk() {
-        return stok_produk;
+    public Integer getStokProduk() {
+        return stokProduk;
     }
 
-    public void setStok_produk(Integer stok_produk) {
-        this.stok_produk = stok_produk;
+    public void setStokProduk(Integer stokProduk) {
+        this.stokProduk = stokProduk;
     }
-
-
 }
