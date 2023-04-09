@@ -3,19 +3,21 @@ package org.acme.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
+
+@Entity
 public class User extends PanacheEntityBase {
 
-
-    private String Id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long Id;
 
     private String nama;
 
     private String email;
 
+    @Column(unique = true)
     private String username;
 
     private String password;
@@ -28,15 +30,17 @@ public class User extends PanacheEntityBase {
 
 
     @JsonManagedReference
-    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "users", fetch = FetchType.EAGER)
     Order orders;
 
 
-    public String getId() {
+
+
+    public Long getId() {
         return Id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         Id = id;
     }
 
