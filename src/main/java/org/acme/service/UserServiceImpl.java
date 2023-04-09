@@ -3,12 +3,11 @@ package org.acme.service;
 
 import io.vertx.core.json.JsonObject;
 import org.acme.entity.User;
-import org.acme.repository.UserRepository;
 import org.acme.repository.UserRepositoryImpl;
+import org.acme.util.HashingPasswordGenerator;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.core.Response;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Collections;
@@ -21,6 +20,9 @@ public class UserServiceImpl implements UserService {
 
     @Inject
     UserRepositoryImpl userRepository;
+
+    @Inject
+    HashingPasswordGenerator generatorPassword;
 
 
     @Override
@@ -40,8 +42,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean createUser(User body) throws NoSuchAlgorithmException, InvalidKeySpecException {
 
-        JsonObject message = new JsonObject();
-
         if (body.getNama() == null) {
             return false;
         } else if (body.getEmail() == null){
@@ -49,13 +49,10 @@ public class UserServiceImpl implements UserService {
         } else if (body.getUsername() == null) {
             return false;
         } else if (body.getPassword() == null){
-//
             return false;
         } else if (body.getAlamat() == null){
-//
             return false;
         } else if (body.getNoTelepon() == null) {
-//
             return false;
         }
         userRepository.add(body);
@@ -63,8 +60,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean foundUser(User user) {
-        return false;
+    public boolean foundUser(User body) throws NoSuchAlgorithmException, InvalidKeySpecException, NullPointerException {
+       User user = User.find("username",body.getUsername()).firstResult();
+
+       String hash = user.getPassword();
+
+       if (user != null){
+           if (generatorPassword.validatePassword(body.getPassword(), hash)){
+               return true;
+           }
+       }
+       return false;
     }
 
 

@@ -16,7 +16,7 @@ public interface UserService {
 
     boolean createUser(User user) throws NoSuchAlgorithmException, InvalidKeySpecException;
 
-    boolean foundUser(User user);
+    boolean foundUser(User user) throws NoSuchAlgorithmException, InvalidKeySpecException;
 
     void updateUserById(User body, Long id) throws NoSuchAlgorithmException, InvalidKeySpecException;
 

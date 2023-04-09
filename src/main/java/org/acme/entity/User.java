@@ -17,7 +17,7 @@ public class User extends PanacheEntityBase {
 
     private String email;
 
-    @Column(unique = true)
+//    @Column(unique = true)
     private String username;
 
     private String password;
